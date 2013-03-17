@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib import admin
 
 # Create your models here.
 class kobe_posts(models.Model):
@@ -12,6 +13,8 @@ class kobe_posts(models.Model):
 	def __unicode__(self):
 		return self.post_title
 
+admin.site.register(kobe_posts)
+
 class kobe_type(models.Model):
 	'''translate,reserved,Original'''
 	type_name = models.CharField(max_length = 100)
@@ -19,12 +22,16 @@ class kobe_type(models.Model):
 	def __unicode__(self):
 		return self.type_name
 
+admin.site.register(kobe_type)
+
 class kobe_category(models.Model):
 	'''C++,Python,Java'''
 	cate_name = models.CharField(max_length = 100)
 
 	def __unicode__(self):
 		return cate_name
+
+admin.site.register(kobe_category)
 
 class kobe_admin(models.Model):
 	user_email = models.EmailField()
@@ -34,3 +41,5 @@ class kobe_admin(models.Model):
 
 	def __unicode__(self):
 		return user_nicename
+
+admin.site.register(kobe_admin)
