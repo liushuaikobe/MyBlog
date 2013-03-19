@@ -29,6 +29,6 @@ class kobe_category(models.Model):
 	cate_name = models.CharField(max_length = 100)
 
 	def __unicode__(self):
-		return cate_name
+		return self.cate_name
 
 admin.site.register(kobe_category)
