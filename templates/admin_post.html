@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script src="static/ckeditor/ckeditor.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="rightcontainer">
+	<form class="form-horizontal">
+		<div class="control-group">
+			<div class="controls">
+				<textarea name="blogeditor"></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-success">Post</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
+
+{% block js %}
+{{ js.super }}
+<script>CKEDITOR.replace('blogeditor');</script>
+{% endblock %}

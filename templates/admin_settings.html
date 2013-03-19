@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="rightcontainer">
+	<ul class="nav nav-tabs">
+		<li class="active"><a href="#">Settings</a></li>
+		<li><a href="post">Post new Articles</a></li>
+	</ul>
+	<form class="form-horizontal">
+		<div class="control-group">
+			<label class="control-label" for="blogname">Name of Blog</label>
+			<div class="controls">
+				<input type="text" id="blogname">
+			</div>
+		</div>
+		<div class="control-group">
+			<label class="control-label" for="numofarticles">Num of Articles Per Page</label>
+			<div class="controls">
+				<select id="numofarticles">
+					<option>5</option>
+					<option>7</option>
+					<option>10</option>
+					<option>15</option>
+					<option>20</option>
+				</select>
+			</div>
+		</div>
+		<div class="control-group">
+			<div class="controls">
+				<button type="submit" class="btn btn-success">Save settings</button>
+			</div>
+		</div>
+	</form>
+</div>
+{% endblock %}
