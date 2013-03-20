@@ -8,6 +8,8 @@ def manage(request):
 		return render_to_response('admin_settings.html',context_instance = RequestContext(request))
 	elif action == 'post':
 		return render_to_response('admin_post.html', context_instance = RequestContext(request))
+	elif action == 'artmanage':
+		return render_to_response('admin_articlemanage.html', context_instance = RequestContext(request))
 
 
 def post(request):
