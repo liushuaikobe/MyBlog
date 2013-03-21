@@ -2,6 +2,9 @@
 
 {% block head %}
 <script src="static/ckeditor/ckeditor.js"></script>
+<script src="static/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="static/codemirror/lib/codemirror.css">
+<script src="static/codemirror/mode/xml/xml.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -45,6 +48,11 @@
 		</div>
 		<div class="control-group">
 			<div>
+				<textarea name="code" id="code"></textarea>
+			</div>
+		</div>
+		<div class="control-group">
+			<div>
 				<button type="submit" class="btn btn-success">Post</button>
 			</div>
 		</div>
@@ -55,4 +63,13 @@
 {% block js %}
 {{ js.super }}
 <script>CKEDITOR.replace('blogeditor');</script>
+<script type="text/javascript">
+	var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
+	{
+		mode: "application/xml",
+		styleActiveLine: true,
+		lineNumbers: true,
+		lineWrapping: true
+	});
+	</script>
 {% endblock %}
