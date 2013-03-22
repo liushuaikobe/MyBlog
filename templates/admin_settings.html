@@ -6,18 +6,22 @@
 		<li class="active"><a href="#">Settings</a></li>
 		<li><a href="?action=post">Post new Articles</a></li>
 		<li><a href="?action=artmanage">Article Management</a></li>
+		<li><a href="?action=catemanage">Category Management</a></li>
 	</ul>
-	<form class="form-horizontal">
+
+	<!-- usual settings -->
+	<form class="form-horizontal" action="" method="post">
+		{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label" for="blogname">Name of Blog</label>
 			<div class="controls">
-				<input type="text" id="blogname">
+				<input type="text" id="blogname" name="blogname">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="numofarticles">Num of Articles Per Page</label>
 			<div class="controls">
-				<select id="numofarticles">
+				<select id="numofarticles" name="numofarticles">
 					<option>5</option>
 					<option>7</option>
 					<option>10</option>
@@ -30,45 +34,12 @@
 			<div class="controls">
 				<button type="submit" class="btn btn-success">Save settings</button>
 			</div>
-		</div>
-	</form>
-	<hr>
-	<form class="form-horizontal">
-		<div class="control-group">
-			<div>
-				<table class="table table-bordered">
-					<tr>
-						<td><strong>Category Management</strong></td>
-					</tr>
-					<tr>
-						<td>#</td><td>Category Name</td><td>Number of Articles</td><td>Options</td>
-					</tr>
-					<tr>
-						<td>1</td><td>Python</td><td>15</td>
-						<td>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-warning btn-small">M</button> 
-							<button type="submit" class="btn btn-danger btn-small">D</button>
-						</div>
-						</td>
-					</tr>
-					<tr>
-						<td>2</td><td>Java</td><td>13</td>
-						<td>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-warning btn-small">M</button> 
-							<button type="submit" class="btn btn-danger btn-small">D</button>
-						</div>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td><td><input type="text" id="blogname"></td><td>0</td>
-						<td>
-							<button type="submit" class="btn btn-success btn-small">Add</button>
-						</td>
-					</tr>
-				</table>
-			</div>
+			{% if success %}
+			<div class="alert alert-success">Save successfully...</div>
+			{% endif %}
+			{% if error %}
+			<div class="alert alert-error">Please correct your errors...</div>
+			{% endif %}
 		</div>
 	</form>
 </div>
