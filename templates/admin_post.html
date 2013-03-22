@@ -3,19 +3,6 @@
 {% block head %}
 <script src="static/jquery-1.9.1.min.js"></script>
 <script src="static/ckeditor/ckeditor.js"></script>
-<script src="static/codemirror/lib/codemirror.js"></script>
-
-<script src="static/codemirror/mode/clike/clike.js"></script>
-<script src="static/codemirror/mode/python/python.js"></script>
-<script src="static/codemirror/mode/xml/xml.js"></script>
-<script src="static/codemirror/mode/javascript/javascript.js"></script>
-<script src="static/codemirror/mode/go/go.js"></script>
-<script src="static/codemirror/mode/php/php.js"></script>
-<script src="static/codemirror/mode/sql/sql.js"></script>
-<script src="static/codemirror/mode/shell/shell.js"></script>
-<script src="static/codemirror/mode/markdown/markdown.js"></script>
-
-<link rel="stylesheet" href="static/codemirror/lib/codemirror.css">
 {% endblock %}
 
 {% block content %}
@@ -63,40 +50,6 @@
 			</div>
 		</div>
 	</form>
-
-	<hr>
-
-	<!-- Insert some codes -->
-	<div class="form-horizontal">
-		<div class="control-group">
-			<label class="control-label" for="lang">Choose Language</label>
-			<div class="controls">
-				<select id="lang">
-					<option>C/C++</option>
-					<option>Java</option>
-					<option>C#</option>
-					<option>Python</option>
-					<option>html/xml</option>
-					<option>JavaScript</option>
-					<option>Go</option>
-					<option>php</option>
-					<option>SQL</option>
-					<option>Shell</option>
-					<option>MarkDown</option>
-				</select>
-			</div>
-		</div>
-		<div class="control-group">
-			<div>
-				<textarea name="code" id="code"></textarea>
-			</div>
-		</div>
-		<div class="control-group">
-			<div>
-				<button class="btn btn-warning" id="insert_code">Insert Code</button>
-			</div>
-		</div>
-	</div>
 
 	<hr>
 
