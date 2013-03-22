@@ -1,10 +1,21 @@
 {% extends "base.html" %}
 
 {% block head %}
+<script src="static/jquery-1.9.1.min.js"></script>
 <script src="static/ckeditor/ckeditor.js"></script>
 <script src="static/codemirror/lib/codemirror.js"></script>
-<link rel="stylesheet" href="static/codemirror/lib/codemirror.css">
+
+<script src="static/codemirror/mode/clike/clike.js"></script>
+<script src="static/codemirror/mode/python/python.js"></script>
 <script src="static/codemirror/mode/xml/xml.js"></script>
+<script src="static/codemirror/mode/javascript/javascript.js"></script>
+<script src="static/codemirror/mode/go/go.js"></script>
+<script src="static/codemirror/mode/php/php.js"></script>
+<script src="static/codemirror/mode/sql/sql.js"></script>
+<script src="static/codemirror/mode/shell/shell.js"></script>
+<script src="static/codemirror/mode/markdown/markdown.js"></script>
+
+<link rel="stylesheet" href="static/codemirror/lib/codemirror.css">
 {% endblock %}
 
 {% block content %}
@@ -35,7 +46,7 @@
 			<label class="control-label" for="articlecate">Category of Articles</label>
 			<div class="controls">
 				<select id="articlecate">
-					<option>C++</option>
+					<option>C/C++</option>
 					<option>Java</option>
 					<option>Python</option>
 				</select>
@@ -61,9 +72,17 @@
 			<label class="control-label" for="lang">Choose Language</label>
 			<div class="controls">
 				<select id="lang">
-					<option>C++</option>
+					<option>C/C++</option>
 					<option>Java</option>
-					<option>xml</option>
+					<option>C#</option>
+					<option>Python</option>
+					<option>html/xml</option>
+					<option>JavaScript</option>
+					<option>Go</option>
+					<option>php</option>
+					<option>SQL</option>
+					<option>Shell</option>
+					<option>MarkDown</option>
 				</select>
 			</div>
 		</div>
@@ -74,7 +93,7 @@
 		</div>
 		<div class="control-group">
 			<div>
-				<button class="btn btn-warning">Insert Code</button>
+				<button class="btn btn-warning" id="insert_code">Insert Code</button>
 			</div>
 		</div>
 	</div>
@@ -118,14 +137,5 @@
 
 {% block js %}
 {{ js.super }}
-<script>CKEDITOR.replace('blogeditor');</script>
-<script type="text/javascript">
-	var editor = CodeMirror.fromTextArea(document.getElementById("code"), 
-	{
-		mode: "application/xml",
-		styleActiveLine: true,
-		lineNumbers: true,
-		lineWrapping: true
-	});
-	</script>
+<script src="static/js/admin_post.js"></script>
 {% endblock %}
