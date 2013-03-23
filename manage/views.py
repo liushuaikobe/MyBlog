@@ -16,7 +16,9 @@ def manage(request):
 				blogname = request.POST['blogname']
 				numofarticles = request.POST['numofarticles']
 				if not blogname and not numofarticles:
-					return render_to_response('admin_settings.html', {'error':True}, RequestContext(request))
+					return render_to_response('admin_settings.html', {'error':'The data can not be null.' }, RequestContext(request))
+				elif len(blogname) > 50:
+					return render_to_response('admin_settings.html', {'error':'The length of the blogname should less then 50.'}, RequestContext(request))
 				else:
 					kobe_meta.objects.filter(meta_key = 'blog_name').update(meta_value = blogname)
 					kobe_meta.objects.filter(meta_key = 'num_of_pages').update(meta_value = int(numofarticles))
