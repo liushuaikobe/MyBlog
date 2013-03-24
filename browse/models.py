@@ -27,6 +27,7 @@ admin.site.register(kobe_type)
 class kobe_category(models.Model):
 	'''C++,Python,Java'''
 	cate_name = models.CharField(max_length = 100)
+	cate_art_num = models.IntegerField()
 
 	def __unicode__(self):
 		return self.cate_name

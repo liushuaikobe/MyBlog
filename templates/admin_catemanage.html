@@ -21,26 +21,19 @@
 					<tr>
 						<td>#</td><td>Category Name</td><td>Number of Articles</td><td>Options</td>
 					</tr>
+					{% for cate in category_list %}
 					<tr>
-						<td>1</td><td>Python</td><td>15</td>
+							<td>{{ cate.no }}</td><td>{{ cate.name }}</td><td>{{ cate.art_num }}</td>
 						<td>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-warning btn-small">M</button> 
-							<button type="submit" class="btn btn-danger btn-small">D</button>
-						</div>
+							<div class="form-inline">
+								<button type="submit" class="btn btn-warning btn-small">M</button> 
+								<button type="submit" class="btn btn-danger btn-small">D</button>
+							</div>
 						</td>
 					</tr>
+					{% endfor %}
 					<tr>
-						<td>2</td><td>Java</td><td>13</td>
-						<td>
-						<div class="form-inline">
-							<button type="submit" class="btn btn-warning btn-small">M</button> 
-							<button type="submit" class="btn btn-danger btn-small">D</button>
-						</div>
-						</td>
-					</tr>
-					<tr>
-						<td>3</td><td><input type="text" id="blogname"></td><td>0</td>
+						<td>{{ next_no }}</td><td><input type="text" id="blogname"></td><td>0</td>
 						<td>
 							<button type="submit" class="btn btn-success btn-small">Add</button>
 						</td>
