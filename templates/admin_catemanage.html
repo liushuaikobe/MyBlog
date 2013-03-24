@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script src="static/jquery-1.9.1.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="rightcontainer">
 	<ul class="nav nav-tabs">
@@ -23,11 +27,18 @@
 					</tr>
 					{% for cate in category_list %}
 					<tr>
-							<td>{{ cate.no }}</td><td>{{ cate.name }}</td><td>{{ cate.art_num }}</td>
+							<td>{{ cate.no }}</td>
+							<td>
+								<div class="cate" id="dp_{{ cate.no }}">{{ cate.name }}</div>
+								<div class="cate_edit" id="ed_{{ cate.no }}">
+									<input type="text" value="{{ cate.name }}" id="ip_{{ cate.no }}">
+								</div>
+							</td>
+							<td>{{ cate.art_num }}</td>
 						<td>
 							<div class="form-inline">
-								<button type="submit" class="btn btn-warning btn-small">M</button> 
-								<button type="submit" class="btn btn-danger btn-small">D</button>
+								<button type="submit" class="btn btn-warning btn-small" id="m_btn_{{ cate.no }}">M</button> 
+								<button type="submit" class="btn btn-danger btn-small" id="d_btn_{{ cate.no }}">D</button>
 							</div>
 						</td>
 					</tr>
@@ -43,4 +54,9 @@
 		</div>
 	</form>
 </div>
+{% endblock %}
+
+{% block js %}
+{{ js.super }}
+<script src="static/js/admin_cate.js"></script>
 {% endblock %}
