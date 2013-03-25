@@ -12,9 +12,22 @@ $(function () {
 			$("#" + ed_id).hide();
 		} else {
 			$("#" + dp_id).hide();
-			$("#" + ed_id).show()
+			$("#" + ed_id).show();
+			$("#" + ed_id).focus();
+			$(id).removeClass("btn-warning");
+			$(id).addClass("btn-success");
+			
 		}
 		return false;
+	})
+
+	$("input.ip").blur(function () {
+		var id = $(this).attr("id");
+		var dp_id = "dp_" + id.substr(3,id.length);
+		var ed_id = "ed_" + id.substr(3,id.length);
+
+		$("#" + dp_id).show();
+		$("#" + ed_id).hide();
 	})
 })
 
