@@ -1,6 +1,7 @@
 # Create your views here.
 from django.shortcuts import render_to_response
 from django.template import RequestContext
+from django.http import HttpResponse
 
 from manage.models import kobe_meta
 from browse.models import kobe_category
@@ -53,15 +54,21 @@ def manage(request):
 	elif action == 'catemanage':
 		cate_list = kobe_category.objects.all()
 		meta['category_list'] = []
-		for i in range(len(cate_list)):
-			cate = {}
-			cate['no'] = i + 1
-			cate['name'] = cate_list[i].cate_name
-			cate['art_num'] = cate_list[i].cate_art_num
-			meta['category_list'].append(cate)
-		meta['next_no'] = i + 2
+		for cate in cate_list:
+			cate_meta = {}
+			cate_meta['no'] = cate.id
+			cate_meta['name'] = cate.cate_name
+			cate_meta['art_num'] = cate.cate_art_num
+			meta['category_list'].append(cate_meta)
+		meta['next_no'] = max([cate.id for cate in cate_list]) + 1
 		return render_to_response('admin_catemanage.html', meta, RequestContext(request))
 
+def ajax_modify_category(request):
+	if 'new_cate_name' in request.POST and 'cate_id' in request.POST:
+		return HttpResponse("success")
+	else:
+		return HttpResponse("error")	
+ 
 
 
 
