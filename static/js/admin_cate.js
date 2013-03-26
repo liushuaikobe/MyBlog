@@ -17,7 +17,9 @@ $(function () {
 		} 
 		return false;
 	})
+})
 
+$(function () {
 	$("input.ip").blur(function () {
 		// the id of the input that lose foucs
 		var id = $(this).attr("id");
@@ -45,7 +47,7 @@ $(function () {
 					},
 					success:function (data) {
 						if (data == "success") {
-							alert("Modify sucessfully!");
+							// alert("Modify sucessfully!");
 							$(dp_id_selector).html(new_cate_name);
 							$(ip_id_selector).val(new_cate_name);
 						} else {
@@ -72,6 +74,83 @@ $(function () {
 	})
 })
 
+$(function () {
+	$("button.btn-danger").click(function (e) {
+		e.preventDefault();
+
+		var id = $(this).attr("id");
+
+		var cate_no = id.substring(6, id.length);
+
+		var tr_selector = "#tr_" + cate_no;
+		var dp_id_selector = "#dp_" + cate_no;
+
+		if(confirm("Are you sure to delete the category " + $(dp_id_selector).html() + " ?")) {
+			var csrftoken = getCookie('csrftoken');
+
+			$.ajax({
+				type:"post",
+				url:"delcate/",
+				dataType:"text",
+				data:{
+					cate_id:cate_no
+				},
+				success:function (data) {
+					if(data == "success") {
+						$(tr_selector).remove();
+						// location.reload();
+					} else {
+						alert("Delete fail,please try later...");
+					}
+				},
+				error:function (XHR,textStatus,errorThrown) {
+					alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
+				},
+				headers:{
+						"X-CSRFToken":csrftoken
+				}
+			})
+		}
+	})
+})
+
+$(function () {
+	$("#add_btn").click(function (e) {
+		e.preventDefault();
+
+		var new_cate_name = $.trim($("#new_cate_name").val());
+		if (new_cate_name == "") {
+			$("#alert").show();
+			return;
+		}
+
+		var csrftoken = getCookie('csrftoken');
+
+		$.ajax({
+			type:"post",
+			url:"addcate/",
+			dataType:"text",
+			data:{
+				new_cate_name:new_cate_name
+			},
+			success:function (data) {
+				if (data == "success") {
+					location.reload();
+				} else {
+					$("#alert").html("Add fail,pleasr try later..");
+				}
+			},
+			error:function (XHR,textStatus,errorThrown) {
+				alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
+			},
+			headers:{
+				"X-CSRFToken":csrftoken
+			}
+		})
+	})
+})
+
+// Get cookie by cookie_name
 function getCookie(name) {
     var cookieValue = null;
     if (document.cookie && document.cookie != '') {

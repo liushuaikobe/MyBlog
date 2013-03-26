@@ -8,8 +8,8 @@
 <div class="rightcontainer">
 	<ul class="nav nav-tabs">
 		<li><a href=".">Settings</a></li>
-		<li><a href="?action=post">Post new Articles</a></li>
-		<li><a href="?action=artmanage">Article Management</a></li>
+		<li><a href="?tab=post">Post new Articles</a></li>
+		<li><a href="?tab=artmanage">Article Management</a></li>
 		<li class="active"><a href="#">Category Management</a></li>
 	</ul>
 	</ul>
@@ -19,15 +19,13 @@
 		<div class="control-group">
 			<div>
 				<table class="table table-bordered">
-					<tr>
-						<td><strong>Category Management</strong></td>
-					</tr>
-					<tr>
-						<td>#</td><td>Category Name</td><td>Number of Articles</td><td>Options</td>
+					<tr class="success">
+						<!-- <td>#</td> -->
+						<td>Category Name</td><td>Number of Articles</td><td>Options</td>
 					</tr>
 					{% for cate in category_list %}
-					<tr>
-							<td>{{ cate.no }}</td>
+					<tr id="tr_{{ cate.no }}">
+							<!-- <td>{{ cate.no }}</td> -->
 							<td>
 								<div class="cate" id="dp_{{ cate.no }}">{{ cate.name }}</div>
 								<div class="cate_edit" id="ed_{{ cate.no }}" style="display:none;">
@@ -37,19 +35,23 @@
 							<td>{{ cate.art_num }}</td>
 						<td>
 							<div class="form-inline">
-								<button type="submit" class="btn btn-warning btn-small" id="m_btn_{{ cate.no }}">M</button> 
-								<button type="submit" class="btn btn-danger btn-small" id="d_btn_{{ cate.no }}">D</button>
+								<button class="btn btn-warning btn-small" id="m_btn_{{ cate.no }}">M</button> 
+								<button class="btn btn-danger btn-small" id="d_btn_{{ cate.no }}">D</button>
 							</div>
 						</td>
 					</tr>
 					{% endfor %}
 					<tr>
-						<td>{{ next_no }}</td><td><input type="text" id="blogname"></td><td>0</td>
+						<!-- <td>{{ next_no }}</td> -->
+						<td><input type="text" id="new_cate_name"></td><td>0</td>
 						<td>
-							<button type="submit" class="btn btn-success btn-small">Add</button>
+							<button type="submit" class="btn btn-success btn-small" id="add_btn">Add</button>
 						</td>
 					</tr>
 				</table>
+				<div class="alert alert-error" style="display:none" id="alert">
+					The category name can't be null.
+				</div>
 			</div>
 		</div>
 	</form>

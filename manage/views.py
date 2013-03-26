@@ -7,7 +7,7 @@ from manage.models import kobe_meta
 from browse.models import kobe_category
 
 def manage(request):
-	action = request.GET.get('action')
+	tab = request.GET.get('tab')
 	# get the meta data of blog
 	bn_queryset = kobe_meta.objects.filter(meta_key = 'blog_name')
 	np_queryset = kobe_meta.objects.filter(meta_key = 'num_of_pages')
@@ -15,7 +15,7 @@ def manage(request):
 			'num_of_pages':np_queryset[0].meta_value}
 	# judge which tab is required
 	# common settings
-	if not action:
+	if not tab:
 		if request.method == 'GET':
 			return render_to_response('admin_settings.html', meta, RequestContext(request))
 		else:
@@ -43,15 +43,15 @@ def manage(request):
 				return render_to_response('admin_settings.html', meta, RequestContext(request))
 
 	# post new articles
-	elif action == 'post':
+	elif tab == 'post':
 		return render_to_response('admin_post.html', RequestContext(request))
 
 	# article management
-	elif action == 'artmanage':
+	elif tab == 'artmanage':
 		return render_to_response('admin_articlemanage.html', RequestContext(request))
 
 	# category management
-	elif action == 'catemanage':
+	elif tab == 'catemanage':
 		cate_list = kobe_category.objects.all()
 		meta['category_list'] = []
 		for cate in cate_list:
@@ -60,7 +60,8 @@ def manage(request):
 			cate_meta['name'] = cate.cate_name
 			cate_meta['art_num'] = cate.cate_art_num
 			meta['category_list'].append(cate_meta)
-		meta['next_no'] = max([cate.id for cate in cate_list]) + 1
+		# meta['next_no'] = max([cate.id for cate in cate_list]) + 1
+		meta['next_no'] = ''
 		return render_to_response('admin_catemanage.html', meta, RequestContext(request))
 
 def ajax_modify_category(request):
@@ -69,10 +70,33 @@ def ajax_modify_category(request):
 			kobe_category.objects.filter(id = request.POST['cate_id']).update(cate_name = request.POST['new_cate_name'])
 		except Exception,e:
 			print e
+			return HttpResponse('error')
+		return HttpResponse('success')
+	else:
+		return HttpResponse('error')
+
+def ajax_del_category(request):
+	if 'cate_id' in request.POST:
+		try :
+			kobe_category.objects.get(id = request.POST['cate_id']).delete()
+		except Exception,e:
+			print e
+			return HttpResponse('error')
+		return HttpResponse('success')
+	else:
+		return HttpResponse('error')
+
+def ajax_add_category(request):
+	if 'new_cate_name' in request.POST:
+		try:
+			new_cate = kobe_category(cate_name = request.POST['new_cate_name'], cate_art_num = 0)
+			new_cate.save()
+		except Exception,e:
+			print e
 			return HttpResponse("error")
 		return HttpResponse("success")
 	else:
-		return HttpResponse("error")	
+		return HttpResponse("error")
  
 
 
