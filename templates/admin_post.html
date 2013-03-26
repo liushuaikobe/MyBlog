@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
 {% block head %}
-<script src="static/jquery-1.9.1.min.js"></script>
-<script src="static/ckeditor/ckeditor.js"></script>
+<script src="static/jquery/jquery-1.4.4.min.js"></script>
+<script src="static/xheditor/xheditor-1.1.14-zh-cn.min.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -41,8 +41,8 @@
 			</div>
 		</div>
 		<div class="control-group">
-			<div>
-				<textarea name="blogeditor"></textarea>
+			<div class="controls">
+				<textarea name="blogeditor" class="xheditor"></textarea>
 			</div>
 		</div>
 		<div class="control-group">
