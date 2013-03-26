@@ -24,7 +24,7 @@ def manage(request):
 				blogname = request.POST['blogname']
 				numofpages = request.POST['numofpages']
 				# ensure the form data isn't null
-				if not blogname or not numofpages:
+				if not blogname.strip() or not numofpages.strip():
 					meta['error'] = 'The data can not be null.'
 					return render_to_response('admin_settings.html', meta, RequestContext(request))
 				# ensure the length of blog-name less than 50
@@ -64,7 +64,12 @@ def manage(request):
 		return render_to_response('admin_catemanage.html', meta, RequestContext(request))
 
 def ajax_modify_category(request):
-	if 'new_cate_name' in request.POST and 'cate_id' in request.POST:
+	if 'cate_id' in request.POST and 'new_cate_name' in request.POST:
+		try:		
+			kobe_category.objects.filter(id = request.POST['cate_id']).update(cate_name = request.POST['new_cate_name'])
+		except Exception,e:
+			print e
+			return HttpResponse("error")
 		return HttpResponse("success")
 	else:
 		return HttpResponse("error")	

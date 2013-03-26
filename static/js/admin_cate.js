@@ -30,10 +30,9 @@ $(function () {
 		var ip_id_selector = "#ip_" + cate_no;
 
 		var old_cate_name = $(dp_id_selector).html();
-		var new_cate_name = $(this).val();
+		var new_cate_name = $.trim($(this).val());
 
-		if (old_cate_name != new_cate_name) {
-			var flag = 0;
+		if (old_cate_name != new_cate_name && new_cate_name != "") {
 			if (confirm("Are you sure to change \"" + old_cate_name + "\" to \"" + $(this).val() + "\"?")) {
 				var csrftoken = getCookie('csrftoken');
 				$.ajax({
@@ -47,25 +46,26 @@ $(function () {
 					success:function (data) {
 						if (data == "success") {
 							alert("Modify sucessfully!");
+							$(dp_id_selector).html(new_cate_name);
+							$(ip_id_selector).val(new_cate_name);
 						} else {
 							alert("Modify fail,please try later...");
-							flag = 1;
+							$(ip_id_selector).val(old_cate_name);
 						}
 					},
 					error:function (XHR,textStatus,errorThrown) {
 						alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
-						flag = 1;
+						$(ip_id_selector).val(old_cate_name);
 					},
 					headers:{
 						"X-CSRFToken":csrftoken
 					}
 				})
 			} else {
-				flag = 1;
-			}
-			if (flag) {
 				$(ip_id_selector).val(old_cate_name);
 			}
+		} else {
+			$(ip_id_selector).val(old_cate_name);
 		}
 		$(dp_id_selector).show();
 		$(ed_id_selector).hide();
