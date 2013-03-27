@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block head %}
+<link rel="stylesheet" type="text/css" href="static/css/CodeBtn.css">
 <script src="static/jquery/jquery-1.4.4.min.js"></script>
 <script src="static/xheditor/xheditor-1.1.14-zh-cn.min.js"></script>
 {% endblock %}
@@ -42,7 +43,7 @@
 		</div>
 		<div class="control-group">
 			<div>
-				<textarea name="blogeditor" class="xheditor-mfull" style="width:860px;height:400px; no-repeat left top fixed"></textarea>
+				<textarea name="blogeditor" id="blogeditor" style="width:860px;height:400px; no-repeat left top fixed"></textarea>
 			</div>
 		</div>
 		<div class="control-group">
