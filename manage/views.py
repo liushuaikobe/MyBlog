@@ -6,6 +6,10 @@ from django.http import HttpResponse
 from manage.models import kobe_meta
 from browse.models import kobe_category
 
+from manage.forms import ImgForm
+
+import ImageFile
+
 def manage(request):
 	tab = request.GET.get('tab')
 	# get the meta data of blog
@@ -64,6 +68,7 @@ def manage(request):
 		meta['next_no'] = ''
 		return render_to_response('admin_catemanage.html', meta, RequestContext(request))
 
+# Handle Ajax admin category
 def ajax_modify_category(request):
 	if 'cate_id' in request.POST and 'new_cate_name' in request.POST:
 		try:		
@@ -97,9 +102,17 @@ def ajax_add_category(request):
 		return HttpResponse("success")
 	else:
 		return HttpResponse("error")
- 
 
-
+def receive_img(request):
+	if request.method = 'POST':
+		form = ImgForm(request.POST, request.FILES)
+		if form.is_valid():
+			f = request.FILES["imagefile"]
+			parser = ImageFile.Parser()  
+            for chunk in f.chunks():  
+                parser.feed(chunk)  
+            img = parser.close()  
+            img.save("")  
 
 
 
