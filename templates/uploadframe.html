@@ -1,0 +1,5 @@
+<form enctype="multipart/form-data" action="uploadimg/" method="POST">
+	{% csrf_token %}
+	{{ form.imagefile.errors }}
+	{{ form.imagefile }}
+</form>

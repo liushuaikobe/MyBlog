@@ -32,3 +32,11 @@ function getCodePlugin() {
     };
     return codePlugin;
 }
+
+$(function () {
+    $('#btn_addimg').click(function (e) {
+        e.preventDefault();
+
+        window.frames["uploadframe"].document.forms[0].submit();
+    });
+})

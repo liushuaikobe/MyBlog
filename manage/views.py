@@ -103,16 +103,4 @@ def ajax_add_category(request):
 	else:
 		return HttpResponse("error")
 
-def receive_img(request):
-	if request.method = 'POST':
-		form = ImgForm(request.POST, request.FILES)
-		if form.is_valid():
-			f = request.FILES["imagefile"]
-			parser = ImageFile.Parser()  
-            for chunk in f.chunks():  
-                parser.feed(chunk)  
-            img = parser.close()  
-            img.save("")  
-
-
 
