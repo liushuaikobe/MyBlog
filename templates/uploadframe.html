@@ -3,3 +3,11 @@
 	{{ form.imagefile.errors }}
 	{{ form.imagefile }}
 </form>
+<script type="text/javascript">
+function addPath (path) {
+	parent.setPath(path);
+}
+{% if path %}
+addPath("{{ path }}");
+{% endif %}
+</script>

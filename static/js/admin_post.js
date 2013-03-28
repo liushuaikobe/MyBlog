@@ -40,3 +40,80 @@ $(function () {
         window.frames["uploadframe"].document.forms[0].submit();
     });
 })
+
+function setPath (path) {
+    id = getid(path);
+    $('#imgs').append('<tr id="tr_' + id + '"><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '">I</button><button type="submit" class="btn btn-danger btn-small id="d_btn_' + id + '" onclick="delimg();">D</button></div></td></tr>');
+}
+
+function getid (path) {
+    imgName = path.substr(path.lastIndexOf("/")+1);
+    // return imgName.substr(0, imgName.lastIndexOf("."));
+    return imgName
+}
+
+function delimg() {
+    var id = $(this).attr("id");
+
+    var imgName = id.substr(6, id.length);
+
+    var trSelector = "#tr_" + imgName;
+
+
+    if (confirm("Are you sure to delete this image?")) {
+        var csrftoken = getCookie('csrftoken');
+        $.ajax({
+            type:"post",
+            url:"delimg/",
+            dataType:"text",
+            data:{
+                img_id:id
+            },
+            success:function (data) {
+                if (data != "success") {
+                    $("#alert").show();
+                }
+            },
+            error:function (XHR,textStatus,errorThrown) {
+                alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
+            },
+            headers:{
+                "X-CSRFToken":getCookie('csrftoken')
+            }
+        });
+    }
+}
+
+// Get cookie by cookie_name
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

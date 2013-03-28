@@ -5,11 +5,10 @@ from django.http import HttpResponse
 
 from forms import ImgForm
 
-import ImageFile,time
+import ImageFile,time,os
 
 def uploadframe(request):
-	form = ImgForm()
-	return render_to_response('uploadframe.html', {'form':form},RequestContext(request))
+	return render_to_response('uploadframe.html', {'form':ImgForm()},RequestContext(request))
 
 
 def receive_img(request):
@@ -28,4 +27,15 @@ def receive_img(request):
 
 			img.save(img_path + img_name)
 
-			return HttpResponse('http://' + request.get_host() + '/' + img_path + img_name)
+			data = {'path':'http://' + request.get_host() + '/' + img_path + img_name, 'form':ImgForm()}
+
+			return render_to_response('uploadframe.html', data, RequestContext(request))
+
+def ajax_del_img(request):
+	if 'img_id' in request.POST:
+		try:
+			os.remove('static/uploads_imgs/' + request.POST[img_id])
+			return HttpResponse('success')
+		except Exception, e:
+			print e
+			return HttpResponse('error')
