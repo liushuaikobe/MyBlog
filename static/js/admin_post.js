@@ -1,5 +1,8 @@
+// xheditor全局变量
+var editor;
+
 $(function () {
-	var editor = $('#blogeditor').xheditor({plugins: getCodePlugin(), tools:'mfull'})
+	editor = $('#blogeditor').xheditor({plugins: getCodePlugin(), tools:'mfull'})
 })
 
 function getCodePlugin() {
@@ -42,7 +45,7 @@ $(function () {
 
 function setPath (path) {
     id = getid(path);
-    $('#imgs').append('<tr><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '">I</button><button type="submit" class="btn btn-danger btn-small" id="d_btn_' + id + '" onclick="delimg(this);">D</button></div></td></tr>');
+    $('#imgs').append('<tr><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '" onclick="insertimg(this);">I</button><button type="submit" class="btn btn-danger btn-small" id="d_btn_' + id + '" onclick="delimg(this);">D</button></div></td></tr>');
 }
 
 function getid (path) {
@@ -51,8 +54,25 @@ function getid (path) {
     return imgName
 }
 
+function insertimg(e) {
+    // alert(e.parentNode.parentNode.previousSibling.innerHTML);
+    var url = e.parentNode.parentNode.previousSibling.innerHTML;
+    var str = "<img src='" + url + "' />";
+    if (editor) {
+        editor.loadBookmark();
+        editor.pasteHTML(str);
+    } else {
+        $('#blogeditor').val($('#blogeditor').val() + str);
+    }
+}
+
 // 特别注意e是xml DOM对象
 function delimg(e) {
+    if ($("#blogeditor").val().indexOf(e.parentNode.parentNode.previousSibling.innerHTML) > 0) {
+        alert("This image was in your article, you cannot delete it.");
+        return;
+    }
+
     var img_name = e.id.substr(6,id.length);
 
     if (confirm("Are you sure to delete this image?")) {
