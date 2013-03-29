@@ -8,10 +8,6 @@ from forms import ImgForm
 import ImageFile,time,os
 
 def uploadframe(request):
-	return render_to_response('uploadframe.html', {'form':ImgForm()},RequestContext(request))
-
-
-def receive_img(request):
 	data = {'form':ImgForm()}
 	if request.method == 'POST':
 		form = ImgForm(request.POST, request.FILES)
