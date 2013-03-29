@@ -42,8 +42,9 @@ $(function () {
 					url:"modifycate/",
 					dataType:"text",
 					data:{
-						new_cate_name:new_cate_name, 
-						cate_id:cate_no
+						'new_cate_name':new_cate_name, 
+						'cate_id':cate_no,
+						'csrfmiddlewaretoken':getCookie("csrftoken")
 					},
 					success:function (data) {
 						if (data == "success") {
@@ -59,9 +60,6 @@ $(function () {
 						alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
 						$(ip_id_selector).val(old_cate_name);
 					},
-					headers:{
-						"X-CSRFToken":csrftoken
-					}
 				})
 			} else {
 				$(ip_id_selector).val(old_cate_name);
@@ -93,7 +91,8 @@ $(function () {
 				url:"delcate/",
 				dataType:"text",
 				data:{
-					cate_id:cate_no
+					'cate_id':cate_no,
+					'csrfmiddlewaretoken':getCookie("csrftoken")
 				},
 				success:function (data) {
 					if(data == "success") {
@@ -106,9 +105,6 @@ $(function () {
 				error:function (XHR,textStatus,errorThrown) {
 					alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
 				},
-				headers:{
-						"X-CSRFToken":csrftoken
-				}
 			})
 		}
 	})
@@ -124,14 +120,13 @@ $(function () {
 			return;
 		}
 
-		var csrftoken = getCookie('csrftoken');
-
 		$.ajax({
 			type:"post",
 			url:"addcate/",
 			dataType:"text",
 			data:{
-				new_cate_name:new_cate_name
+				new_cate_name:new_cate_name,
+				'csrfmiddlewaretoken':getCookie("csrftoken")
 			},
 			success:function (data) {
 				if (data == "success") {
@@ -143,9 +138,6 @@ $(function () {
 			error:function (XHR,textStatus,errorThrown) {
 				alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
 			},
-			headers:{
-				"X-CSRFToken":csrftoken
-			}
 		})
 	})
 })

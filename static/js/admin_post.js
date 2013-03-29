@@ -67,7 +67,8 @@ function delimg() {
             url:"delimg/",
             dataType:"text",
             data:{
-                img_id:id
+                'img_id':id,
+                'csrfmiddlewaretoken':getCookie("csrftoken")
             },
             success:function (data) {
                 if (data != "success") {

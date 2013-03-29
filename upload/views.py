@@ -34,7 +34,7 @@ def receive_img(request):
 def ajax_del_img(request):
 	if 'img_id' in request.POST:
 		try:
-			os.remove('static/uploads_imgs/' + request.POST[img_id])
+			os.remove('static/uploads_imgs/' + request.POST['img_id'])
 			return HttpResponse('success')
 		except Exception, e:
 			print e
