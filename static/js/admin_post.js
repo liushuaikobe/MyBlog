@@ -36,14 +36,13 @@ function getCodePlugin() {
 $(function () {
     $('#btn_addimg').click(function (e) {
         e.preventDefault();
-
         window.frames["uploadframe"].document.forms[0].submit();
     });
 })
 
 function setPath (path) {
     id = getid(path);
-    $('#imgs').append('<tr id="tr_' + id + '"><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '">I</button><button type="submit" class="btn btn-danger btn-small id="d_btn_' + id + '" onclick="delimg();">D</button></div></td></tr>');
+    $('#imgs').append('<tr><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '">I</button><button type="submit" class="btn btn-danger btn-small" id="d_btn_' + id + '" onclick="delimg(this);">D</button></div></td></tr>');
 }
 
 function getid (path) {
@@ -52,35 +51,30 @@ function getid (path) {
     return imgName
 }
 
-function delimg() {
-    var id = $(this).attr("id");
-
-    var imgName = id.substr(6, id.length);
-
-    var trSelector = "#tr_" + imgName;
-
+// 特别注意e是xml DOM对象
+function delimg(e) {
+    var img_name = e.id.substr(6,id.length);
 
     if (confirm("Are you sure to delete this image?")) {
-        var csrftoken = getCookie('csrftoken');
         $.ajax({
             type:"post",
             url:"delimg/",
             dataType:"text",
             data:{
-                'img_id':id,
+                'img_id':img_name,
                 'csrfmiddlewaretoken':getCookie("csrftoken")
             },
             success:function (data) {
                 if (data != "success") {
                     $("#alert").show();
+                } else {
+                    // 删除图片表格对应的行
+                    e.parentNode.parentNode.parentNode.remove();
                 }
             },
             error:function (XHR,textStatus,errorThrown) {
                 alert("XHR="+XHR+"\ntextStatus="+textStatus+"\nerrorThrown=" + errorThrown);
             },
-            headers:{
-                "X-CSRFToken":getCookie('csrftoken')
-            }
         });
     }
 }
@@ -101,20 +95,3 @@ function getCookie(name) {
     }
     return cookieValue;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
