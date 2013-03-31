@@ -4,70 +4,67 @@ from django.template import RequestContext
 from django.http import HttpResponse
 
 from manage.models import kobe_meta
-from browse.models import kobe_category
-
 from manage.forms import ImgForm
+from browse.models import kobe_category
 
 import ImageFile
 
-def manage(request):
-	tab = request.GET.get('tab')
-	# get the meta data of blog
-	bn_queryset = kobe_meta.objects.filter(meta_key = 'blog_name')
-	np_queryset = kobe_meta.objects.filter(meta_key = 'num_of_pages')
-	meta = {'blog_name':bn_queryset[0].meta_value,
-			'num_of_pages':np_queryset[0].meta_value}
-	# judge which tab is required
-	# common settings
-	if not tab:
-		if request.method == 'GET':
-			return render_to_response('admin_settings.html', meta, RequestContext(request))
-		else:
-			# Check the form data is enough
-			if 'blogname' in request.POST and 'numofpages' in request.POST:
-				blogname = request.POST['blogname']
-				numofpages = request.POST['numofpages']
-				# ensure the form data isn't null
-				if not blogname.strip() or not numofpages.strip():
-					meta['error'] = 'The data can not be null.'
-					return render_to_response('admin_settings.html', meta, RequestContext(request))
-				# ensure the length of blog-name less than 50
-				elif len(blogname) > 50:
-					meta['error'] = 'The length of the blogname should less then 50.'
-					return render_to_response('admin_settings.html', meta, RequestContext(request))
-				# post to DB
-				else:
-					bn_queryset.update(meta_value = blogname)
-					np_queryset.update(meta_value = numofpages)
-					meta['blog_name'] = blogname
-					meta['num_of_pages'] = numofpages
-					meta['success'] = True
-					return render_to_response('admin_settings.html', meta, RequestContext(request))
+# get the meta data of blog
+bn_queryset = kobe_meta.objects.filter(meta_key = 'blog_name')
+np_queryset = kobe_meta.objects.filter(meta_key = 'num_of_pages')
+meta = {'blog_name':bn_queryset[0].meta_value, 'num_of_pages':np_queryset[0].meta_value}
+
+# common settings
+def settings(request):
+	global meta
+	if request.method == 'GET':
+		return render_to_response('admin_settings.html', meta, RequestContext(request))
+	else:
+		# Check the form data is enough
+		if 'blogname' in request.POST and 'numofpages' in request.POST:
+			blogname = request.POST['blogname']
+			numofpages = request.POST['numofpages']
+			# ensure the form data isn't null
+			if not blogname.strip() or not numofpages.strip():
+				return render_to_response('admin_settings.html', dict(meta, **{'error':'The data can not be null.'}), RequestContext(request))
+			# ensure the length of blog-name less than 50
+			elif len(blogname) > 50:
+				return render_to_response('admin_settings.html', dict(meta, **{'error':'The length of the blogname should less then 50.'}), RequestContext(request))
+			# post to DB
 			else:
-				return render_to_response('admin_settings.html', meta, RequestContext(request))
+				bn_queryset.update(meta_value = blogname)
+				np_queryset.update(meta_value = numofpages)
+				meta['blog_name'] = blogname
+				meta['num_of_pages'] = numofpages
+				return render_to_response('admin_settings.html', dict(meta, **{'success':True}), RequestContext(request))
+		else:
+			return render_to_response('admin_settings.html', meta, RequestContext(request))
 
-	# post new articles
-	elif tab == 'post':
-		return render_to_response('admin_post.html', RequestContext(request))
+# post new articles
+def post(request):
+	return render_to_response('admin_post.html', meta, RequestContext(request))
 
-	# article management
-	elif tab == 'artmanage':
-		return render_to_response('admin_articlemanage.html', RequestContext(request))
+# article management
+def artmanage(request):
+	return render_to_response('admin_articlemanage.html', meta, RequestContext(request))
 
-	# category management
-	elif tab == 'catemanage':
-		cate_list = kobe_category.objects.all()
-		meta['category_list'] = []
-		for cate in cate_list:
-			cate_meta = {}
-			cate_meta['no'] = cate.id
-			cate_meta['name'] = cate.cate_name
-			cate_meta['art_num'] = cate.cate_art_num
-			meta['category_list'].append(cate_meta)
-		# meta['next_no'] = max([cate.id for cate in cate_list]) + 1
-		meta['next_no'] = ''
-		return render_to_response('admin_catemanage.html', meta, RequestContext(request))
+# category management
+def catemanage(request):
+	global meta
+	cate_list = kobe_category.objects.all()
+	category_list = []
+	for cate in cate_list:
+		cate_meta = {}
+		cate_meta['no'] = cate.id
+		cate_meta['name'] = cate.cate_name
+		cate_meta['art_num'] = cate.cate_art_num
+		category_list.append(cate_meta)
+	return render_to_response('admin_catemanage.html', dict(meta, **{'category_list':category_list, 'next_no':''}), RequestContext(request))
 
+
+#-------------------------------------------#
+# Handle Ajax Requests                      #  
+#-------------------------------------------#
 # Handle Ajax admin category
 def ajax_modify_category(request):
 	if 'cate_id' in request.POST and 'new_cate_name' in request.POST:

@@ -39,7 +39,7 @@ $(function () {
 				var csrftoken = getCookie('csrftoken');
 				$.ajax({
 					type:"post",
-					url:"modifycate/",
+					url:"/manage/catemanage/modifycate/",
 					dataType:"text",
 					data:{
 						'new_cate_name':new_cate_name, 
@@ -88,7 +88,7 @@ $(function () {
 
 			$.ajax({
 				type:"post",
-				url:"delcate/",
+				url:"/manage/catemanage/delcate/",
 				dataType:"text",
 				data:{
 					'cate_id':cate_no,

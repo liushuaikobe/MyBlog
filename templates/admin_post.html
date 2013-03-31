@@ -1,18 +1,18 @@
 {% extends "base.html" %}
 
 {% block head %}
-<link rel="stylesheet" type="text/css" href="static/css/CodeBtn.css">
-<script src="static/jquery/jquery-1.4.4.min.js"></script>
-<script src="static/xheditor/xheditor-1.1.14-zh-cn.min.js"></script>
+<link rel="stylesheet" type="text/css" href="{{ STATIC_URL }}css/CodeBtn.css">
+<script src="{{ STATIC_URL }}jquery/jquery-1.4.4.min.js"></script>
+<script src="{{ STATIC_URL }}xheditor/xheditor-1.1.14-zh-cn.min.js"></script>
 {% endblock %}
 
 {% block content %}
 <div class="rightcontainer">
 	<ul class="nav nav-tabs">
-		<li><a href=".">Settings</a></li>
+		<li><a href="/manage/settings/">Settings</a></li>
 		<li class="active"><a href="#">Post new Articles</a></li>
-		<li><a href="?tab=artmanage">Article Management</a></li>
-		<li><a href="?tab=catemanage">Category Management</a></li>
+		<li><a href="/manage/artmanage/">Article Management</a></li>
+		<li><a href="/manage/catemanage/">Category Management</a></li>
 	</ul>
 	<form class="form-horizontal">
 		<div class="control-group">
@@ -67,7 +67,7 @@
 					<td><strong>options</strong></td>
 				</tr>
 			</table>
-			<iframe src="uploadframe/" id="uploadframe" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" style="height:25px;float:left;"></iframe>
+			<iframe src="/manage/post/uploadframe/" id="uploadframe" scrolling="no" frameborder="0" marginwidth="0" marginheight="0" style="height:25px;float:left;"></iframe>
 			<button type="submit" class="btn btn-small btn-info" id="btn_addimg">Add a Image</button>
 		</div>
 	</div>
@@ -79,5 +79,5 @@
 
 {% block js %}
 {{ js.super }}
-<script src="static/js/admin_post.js"></script>
+<script src="{{ STATIC_URL }}js/admin_post.js"></script>
 {% endblock %}

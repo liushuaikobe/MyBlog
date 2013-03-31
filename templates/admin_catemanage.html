@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 
 {% block head %}
-<script src="static/jquery/jquery-1.4.4.min.js"></script>
+<script src="{{ STATIC_URL }}jquery/jquery-1.4.4.min.js"></script>
 {% endblock %}
 
 {% block content %}
 <div class="rightcontainer">
 	<ul class="nav nav-tabs">
-		<li><a href=".">Settings</a></li>
-		<li><a href="?tab=post">Post new Articles</a></li>
-		<li><a href="?tab=artmanage">Article Management</a></li>
+		<li><a href="/manage/settings/">Settings</a></li>
+		<li><a href="/manage/post/">Post new Articles</a></li>
+		<li><a href="/manage/artmanage/">Article Management</a></li>
 		<li class="active"><a href="#">Category Management</a></li>
 	</ul>
 	</ul>
@@ -61,5 +61,5 @@
 
 {% block js %}
 {{ js.super }}
-<script src="static/js/admin_cate.js"></script>
+<script src="{{ STATIC_URL }}js/admin_cate.js"></script>
 {% endblock %}

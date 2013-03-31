@@ -14,7 +14,7 @@ def uploadframe(request):
 		if form.is_valid():
 			f = request.FILES["imagefile"]
 
-			img_path = 'static/uploads_imgs/'
+			img_path = 'uploads_imgs/'
 			img_name = time.strftime('%Y%m%d%H%M%S',time.localtime(time.time())) + '.' +f.name.split('.')[-1:][0]
 
 			parser = ImageFile.Parser()
@@ -28,7 +28,7 @@ def uploadframe(request):
 def ajax_del_img(request):
 	if 'img_id' in request.POST:
 		try:
-			os.remove('static/uploads_imgs/' + request.POST['img_id'])
+			os.remove('uploads_imgs/' + request.POST['img_id'])
 		except Exception, e:
 			print e
 			return HttpResponse('error')
