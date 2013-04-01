@@ -15,6 +15,7 @@
 		<li><a href="/manage/catemanage/">Category Management</a></li>
 	</ul>
 	<form class="form-horizontal">
+		{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label" for="articlename">Name of Articles</label>
 			<div class="controls">
@@ -25,9 +26,9 @@
 			<label class="control-label" for="articletype">type of Articles</label>
 			<div class="controls">
 				<select id="articletype">
-					<option>Original</option>
-					<option>Reserved</option>
-					<option>Translation</option>
+					{% for type in type_list %}
+						<option>{{ type }}</option>
+					{% endfor %}
 				</select>
 			</div>
 		</div>
@@ -35,9 +36,9 @@
 			<label class="control-label" for="articlecate">Category of Articles</label>
 			<div class="controls">
 				<select id="articlecate">
-					<option>C/C++</option>
-					<option>Java</option>
-					<option>Python</option>
+					{% for cate in category_list %}
+						<option>{{ cate }}</option>
+					{% endfor %}
 				</select>
 			</div>
 		</div>

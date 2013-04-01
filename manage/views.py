@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from manage.models import kobe_meta
 from manage.forms import ImgForm
-from browse.models import kobe_category
+from browse.models import kobe_category, kobe_type
 
 import ImageFile
 
@@ -42,7 +42,9 @@ def settings(request):
 
 # post new articles
 def post(request):
-	return render_to_response('admin_post.html', meta, RequestContext(request))
+	cate_list = kobe_category.objects.all()
+	type_list = kobe_type.objects.all()
+	return render_to_response('admin_post.html', dict(meta, **{'category_list':cate_list, 'type_list':type_list}), RequestContext(request))
 
 # article management
 def artmanage(request):
