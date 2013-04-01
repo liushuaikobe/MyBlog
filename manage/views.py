@@ -5,7 +5,7 @@ from django.http import HttpResponse
 
 from manage.models import kobe_meta
 from manage.forms import ImgForm
-from browse.models import kobe_category, kobe_type
+from browse.models import kobe_category, kobe_type, kobe_posts
 
 import ImageFile
 
@@ -42,9 +42,29 @@ def settings(request):
 
 # post new articles
 def post(request):
+	global meta
 	cate_list = kobe_category.objects.all()
 	type_list = kobe_type.objects.all()
+	if request.method == 'POST':
+		if 'articlename' in request.POST and 'articletype' in request.POST and 'articlecate' in request.POST and 'blogeditor' in request.POST:
+			articlename = request.POST['articlename']
+			articletype = request.POST['articletype']
+			articlecate = request.POST['articlecate']
+			article = request.POST['blogeditor']
+			if articlename and articletype and articlecate and article:
+				post = kobe_posts(post_title=articlename, post_view_num=0, post_content=article)
+				post.post_type = kobe_type.objects.filter(type_name=articletype)[0]
+
+				current_cate = kobe_category.objects.filter(cate_name=articlecate)
+				current_cate.update(cate_art_num = (int(current_cate[0].cate_art_num) + 1))
+
+				post.post_cate = current_cate[0]
+
+				post.save()
 	return render_to_response('admin_post.html', dict(meta, **{'category_list':cate_list, 'type_list':type_list}), RequestContext(request))
+
+
+
 
 # article management
 def artmanage(request):

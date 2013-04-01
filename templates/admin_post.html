@@ -14,18 +14,18 @@
 		<li><a href="/manage/artmanage/">Article Management</a></li>
 		<li><a href="/manage/catemanage/">Category Management</a></li>
 	</ul>
-	<form class="form-horizontal">
+	<form class="form-horizontal" action="" method="post">
 		{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label" for="articlename">Name of Articles</label>
 			<div class="controls">
-				<input type="text" id="articlename">
+				<input type="text" id="articlename" name="articlename">
 			</div>
 		</div>
 		<div class="control-group">
 			<label class="control-label" for="articletype">type of Articles</label>
 			<div class="controls">
-				<select id="articletype">
+				<select id="articletype" name="articletype">
 					{% for type in type_list %}
 						<option>{{ type }}</option>
 					{% endfor %}
@@ -35,7 +35,7 @@
 		<div class="control-group">
 			<label class="control-label" for="articlecate">Category of Articles</label>
 			<div class="controls">
-				<select id="articlecate">
+				<select id="articlecate" name="articlecate">
 					{% for cate in category_list %}
 						<option>{{ cate }}</option>
 					{% endfor %}
