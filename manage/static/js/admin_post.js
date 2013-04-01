@@ -43,17 +43,43 @@ $(function () {
     });
 })
 
+$(function () {
+    // post new article之前检查本地检测数据是否完整
+    $('#btn_post').click(function (e) {
+        var flag = 0;
+        if ($.trim($('#articlename').val()) == '') {
+            showErr("Please input the title.");
+            flag = 1;
+        } else if ($.trim($('#blogeditor').val() === '')) {
+            showErr("Please input the content of your alticle.");
+            flag = 1;
+        }
+        if (flag) {
+            e.preventDefault();
+        }
+    })
+})
+
+// 显示博客编辑相关的错误信息
+function showErr (msg) {
+    $('#edit_alert').html(msg);
+    $('#edit_alert').show();
+}
+
+// 上传图片成功后，将图片的URL附加到图片列表中
 function setPath (path) {
     id = getid(path);
     $('#imgs').append('<tr><td>' + path + '</td><td><div class="form-inline"><button type="submit" class="btn btn-warning btn-small" id="i_btn_' + id + '" onclick="insertimg(this);">I</button><button type="submit" class="btn btn-danger btn-small" id="d_btn_' + id + '" onclick="delimg(this);">D</button></div></td></tr>');
 }
 
+// 根据服务器对图片的重命名获得图片的ID
 function getid (path) {
     imgName = path.substr(path.lastIndexOf("/")+1);
     // return imgName.substr(0, imgName.lastIndexOf("."));
     return imgName
 }
 
+// 将图片插入到xheditor
 function insertimg(e) {
     // alert(e.parentNode.parentNode.previousSibling.innerHTML);
     var url = e.parentNode.parentNode.previousSibling.innerHTML;
