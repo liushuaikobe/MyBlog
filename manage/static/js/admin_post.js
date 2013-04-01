@@ -36,6 +36,7 @@ function getCodePlugin() {
     return codePlugin;
 }
 
+// 上传图片
 $(function () {
     $('#btn_addimg').click(function (e) {
         e.preventDefault();
