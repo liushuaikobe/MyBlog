@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head %}
+<script src="{{ STATIC_URL }}jquery/jquery-1.4.4.min.js"></script>
+{% endblock %}
+
 {% block content %}
 <div class="rightcontainer">
 	<ul class="nav nav-tabs">
@@ -10,36 +14,29 @@
 	</ul>
 	<table class="table table-striped">
 		<tr>
-			<td><strong>#</strong></td>
 			<td><strong>Title</strong></td>
 			<td><strong>Time</strong></td>
-			<td><strong>Reading quantity</strong></td>
+			<td><strong>Num of View</strong></td>
 			<td><strong>Options</strong></td>
 		</tr>
-		<tr>
-			<td>1</td>
-			<td>sadasdasdasdgggggg</td>
-			<td>2013.03.20 18:30</td>
-			<td>38000</td>
+		{% for post in post_list %}
+		<tr id="tr_{{ post.no }}">
+			<td>{{ post.title }}</td>
+			<td>{{ post.time }}</td>
+			<td>{{ post.viewnum }}</td>
 			<td>
 				<div class="form-inline">
-					<button type="submit" class="btn btn-warning btn-small">M</button> 
-					<button type="submit" class="btn btn-danger btn-small">D</button>
+					<button type="submit" class="btn btn-warning btn-small" id="m_btn_{{ post.no }}">M</button> 
+					<button type="submit" class="btn btn-danger btn-small" id="d_btn_{{ post.no }}">D</button>
 				</div>
 			</td>
 		</tr>
-		<tr>
-			<td>1</td>
-			<td>sadasdasdasdgdddddddggg</td>
-			<td>2013.03.20 18:30</td>
-			<td>38000</td>
-			<td>
-				<div class="form-inline">
-					<button type="submit" class="btn btn-warning btn-small">M</button> 
-					<button type="submit" class="btn btn-danger btn-small">D</button>
-				</div>
-			</td>
-		</tr>
+		{% endfor %}
 	</table>
 </div>
+{% endblock %}
+
+{% block js %}
+{{ js.super }}
+<script src="{{ STATIC_URL }}js/admin_art.js"></script>
 {% endblock %}

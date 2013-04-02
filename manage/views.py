@@ -63,12 +63,19 @@ def post(request):
 				post.save()
 	return render_to_response('admin_post.html', dict(meta, **{'category_list':cate_list, 'type_list':type_list}), RequestContext(request))
 
-
-
-
 # article management
 def artmanage(request):
-	return render_to_response('admin_articlemanage.html', meta, RequestContext(request))
+	post_list = kobe_posts.objects.all()
+	tmpList = []
+	for post in post_list:
+		tmpDic = {}
+		tmpDic['no'] = post.id
+		tmpDic['title'] = post.post_title
+		tmpDic['time'] = post.post_date
+		tmpDic['viewnum'] = post.post_view_num
+		tmpList.append(tmpDic)
+	# print tmpList
+	return render_to_response('admin_articlemanage.html', dict(meta, **{'post_list':tmpList}), RequestContext(request))
 
 # category management
 def catemanage(request):
