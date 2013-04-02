@@ -51,7 +51,7 @@ $(function () {
         if ($.trim($('#articlename').val()) == '') {
             showErr("Please input the title.");
             flag = 1;
-        } else if ($.trim($('#blogeditor').val() === '')) {
+        } else if ($.trim($('#blogeditor').val()) == '') {
             showErr("Please input the content of your alticle.");
             flag = 1;
         }
