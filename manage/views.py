@@ -124,9 +124,20 @@ def ajax_add_category(request):
 			new_cate.save()
 		except Exception,e:
 			print e
-			return HttpResponse("error")
-		return HttpResponse("success")
+			return HttpResponse('error')
+		return HttpResponse('success')
 	else:
-		return HttpResponse("error")
+		return HttpResponse('error')
+
+def ajax_del_post(request):
+	if 'post_id' in request.POST:
+		try:
+			kobe_posts.objects.get(id = request.POST['post_id']).delete()
+		except Exception,e:
+			print e
+			return HttpResponse('error')
+		return HttpResponse('success')
+	else:
+		return HttpResponse('error')
 
 

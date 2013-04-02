@@ -6,7 +6,7 @@ admin.autodiscover()
 
 from browse.views import display_archive
 from manage.views import settings, post, artmanage, catemanage
-from manage.views import ajax_modify_category, ajax_del_category, ajax_add_category
+from manage.views import ajax_modify_category, ajax_del_category, ajax_add_category, ajax_del_post
 from upload.views import uploadframe, ajax_del_img
 
 urlpatterns = patterns('',
@@ -21,6 +21,7 @@ urlpatterns = patterns('',
     url(r'^manage/catemanage/addcate/', ajax_add_category),
     url(r'^manage/post/uploadframe/$', uploadframe),
     url(r'^manage/post/delimg/$', ajax_del_img),
+    url(r'^manage/artmanage/delpost/$', ajax_del_post),
     # built-in admin
     url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

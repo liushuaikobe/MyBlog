@@ -33,10 +33,13 @@
 		</tr>
 		{% endfor %}
 	</table>
+	<div id="alert" class="alert alert-error" style="display:none">
+		Delete article failed, please try later.
+	</div>
 </div>
 {% endblock %}
 
 {% block js %}
-{{ js.super }}
+{{ block.super }}
 <script src="{{ STATIC_URL }}js/admin_art.js"></script>
 {% endblock %}
