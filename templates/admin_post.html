@@ -21,7 +21,7 @@
 		<div class="control-group">
 			<label class="control-label" for="articlename">Name of Articles</label>
 			<div class="controls">
-				<input type="text" id="articlename" name="articlename">
+				<input type="text" id="articlename" name="articlename" value="{{ default.title }}">
 			</div>
 		</div>
 		<div class="control-group">
@@ -29,7 +29,7 @@
 			<div class="controls">
 				<select id="articletype" name="articletype">
 					{% for type in type_list %}
-						<option>{{ type }}</option>
+						<option {% ifequal default.type type %} selected="selected" {% endifequal %} >{{ type }}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -39,14 +39,16 @@
 			<div class="controls">
 				<select id="articlecate" name="articlecate">
 					{% for cate in category_list %}
-						<option>{{ cate }}</option>
+						<option {% ifequal default.cate cate %} selected="selected" {% endifequal %} >{{ cate }}</option>
 					{% endfor %}
 				</select>
 			</div>
 		</div>
 		<div class="control-group">
 			<div>
-				<textarea name="blogeditor" id="blogeditor" style="width:860px;height:400px; no-repeat left top fixed"></textarea>
+				<textarea name="blogeditor" id="blogeditor" style="width:860px;height:400px; no-repeat left top fixed" >
+					{{ default.content }}
+				</textarea>
 			</div>
 		</div>
 		<div class="control-group">

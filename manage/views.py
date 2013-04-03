@@ -92,7 +92,18 @@ def catemanage(request):
 
 
 def editpost(request, post_id):
-	return HttpResponse(str(post_id))
+	global meta
+	current_post = kobe_posts.objects.get(id = int(post_id))
+	tmpDic = {}
+	tmpDic['title'] = current_post.post_title
+	tmpDic['type'] = current_post.post_type.type_name
+	tmpDic['cate'] = current_post.post_cate.cate_name
+
+	cate_list = kobe_category.objects.all()
+	type_list = kobe_type.objects.all()
+
+	tmpDic['content'] = current_post.post_content
+	return render_to_response('admin_post.html', dict(meta, **{'default':tmpDic, 'category_list':cate_list, 'type_list':type_list}), RequestContext(request))
 
 #-------------------------------------------#
 # Handle Ajax Requests                      #  
