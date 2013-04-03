@@ -2,6 +2,10 @@ $(function () {
 	// 修改文章
 	$("button.btn-warning").click(function (e) {
 		e.preventDefault();
+
+        var id = $(this).attr("id");
+        var post_no = id.substring(6, id.length);
+        alert(post_no);
 	})
 })
 

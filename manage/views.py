@@ -140,4 +140,7 @@ def ajax_del_post(request):
 	else:
 		return HttpResponse('error')
 
+def ajax_edit_post(request):
+	return HttpResponse('success')
+
 
