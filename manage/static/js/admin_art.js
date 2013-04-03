@@ -5,7 +5,8 @@ $(function () {
 
         var id = $(this).attr("id");
         var post_no = id.substring(6, id.length);
-        alert(post_no);
+
+        window.location.replace("editpost/" + post_no);
 	})
 })
 

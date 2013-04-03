@@ -1,5 +1,5 @@
 # -*- coding: cp936 -*-
-from django.shortcuts import render_to_response
+from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
 
@@ -91,6 +91,9 @@ def catemanage(request):
 	return render_to_response('admin_catemanage.html', dict(meta, **{'category_list':category_list, 'next_no':''}), RequestContext(request))
 
 
+def editpost(request, post_id):
+	return HttpResponse(str(post_id))
+
 #-------------------------------------------#
 # Handle Ajax Requests                      #  
 #-------------------------------------------#
@@ -139,8 +142,3 @@ def ajax_del_post(request):
 		return HttpResponse('success')
 	else:
 		return HttpResponse('error')
-
-def ajax_edit_post(request):
-	return HttpResponse('success')
-
-
