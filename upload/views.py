@@ -5,6 +5,8 @@ from django.http import HttpResponse
 
 from forms import ImgForm
 
+from MyBlog import settings
+
 import ImageFile,time,os
 
 def uploadframe(request):
@@ -22,7 +24,7 @@ def uploadframe(request):
 				parser.feed(chunk)  
 			img = parser.close()
 			img.save(img_path + img_name)
-			data['path'] = 'http://' + request.get_host() + '/' + img_path + img_name
+			data['path'] = 'http://' + request.get_host() + settings.STATIC_URL + img_name
 	return render_to_response('uploadframe.html', data, RequestContext(request))
 
 def ajax_del_img(request):

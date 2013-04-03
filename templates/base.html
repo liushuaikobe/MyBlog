@@ -6,7 +6,9 @@
 	<link href="{{ STATIC_URL }}css/my.css" rel="stylesheet" type="text/css">
 	<link href="{{ STATIC_URL }}css/leftcolumn.css" rel="stylesheet" type="text/css">
 	<link href="{{ STATIC_URL }}css/rightcontent.css" rel="stylesheet" type="text/css">
-	{% block head %}{% endblock %}
+	{% block head %}
+	<script src="{{ STATIC_URL }}jquery/jquery-1.4.4.min.js"></script>
+	{% endblock %}
 </head>
 <body>
 	<!-- title -->
@@ -51,7 +53,6 @@
 		<p>&copy; liushuai HIT IBM Center</p>
 	</div>
 	{% block js %}
-	<script src="http://code.jquery.com/jquery.js"></script>
     <script src="{{ STATIC_URL }}bootstrap/js/bootstrap.min.js"></script>
     <script src="{{ STATIC_URL }}js/manage_common.js"></script>
     {% endblock %}
