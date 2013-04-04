@@ -2,6 +2,7 @@
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.http import HttpResponse
+from django.utils.encoding import smart_unicode, smart_str
 
 from manage.models import kobe_meta
 from manage.forms import ImgForm
@@ -96,8 +97,8 @@ def editpost(request, post_id):
 	current_post = kobe_posts.objects.get(id = int(post_id))
 	tmpDic = {}
 	tmpDic['title'] = current_post.post_title
-	tmpDic['type'] = current_post.post_type.type_name
-	tmpDic['cate'] = current_post.post_cate.cate_name
+	tmpDic['typeid'] = current_post.post_type.id
+	tmpDic['cateid'] = current_post.post_cate.id
 
 	cate_list = kobe_category.objects.all()
 	type_list = kobe_type.objects.all()

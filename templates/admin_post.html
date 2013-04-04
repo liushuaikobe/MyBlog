@@ -16,7 +16,7 @@
 	</ul>
 
 	<!-- edit the articles -->
-	<form class="form-horizontal" action="" method="post">
+	<form class="form-horizontal" action="/manage/post/" method="post">
 		{% csrf_token %}
 		<div class="control-group">
 			<label class="control-label" for="articlename">Name of Articles</label>
@@ -29,7 +29,7 @@
 			<div class="controls">
 				<select id="articletype" name="articletype">
 					{% for type in type_list %}
-						<option {% ifequal default.type type %} selected="selected" {% endifequal %} >{{ type }}</option>
+						<option {% ifequal default.typeid type.id %} selected="selected" {% endifequal %} >{{ type }}</option>
 					{% endfor %}
 				</select>
 			</div>
@@ -39,7 +39,7 @@
 			<div class="controls">
 				<select id="articlecate" name="articlecate">
 					{% for cate in category_list %}
-						<option {% ifequal default.cate cate %} selected="selected" {% endifequal %} >{{ cate }}</option>
+						<option {% ifequal default.cateid cate.id %} selected="selected" {% endifequal %} >{{ cate }}</option>
 					{% endfor %}
 				</select>
 			</div>
