@@ -147,7 +147,12 @@ def ajax_add_category(request):
 def ajax_del_post(request):
 	if 'post_id' in request.POST:
 		try:
-			kobe_posts.objects.get(id = request.POST['post_id']).delete()
+			tmp_post = kobe_posts.objects.get(id = request.POST['post_id'])
+			tmp_cate = tmp_post.post_cate
+			num = int(tmp_cate.cate_art_num)
+			tmp_cate.cate_art_num = num - 1
+			tmp_cate.save()
+			tmp_post.delete()
 		except Exception,e:
 			print e
 			return HttpResponse('error')

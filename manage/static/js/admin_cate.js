@@ -35,7 +35,7 @@ $(function () {
 		var new_cate_name = $.trim($(this).val());
 
 		if (old_cate_name != new_cate_name && new_cate_name != "") {
-			if (confirm("Are you sure to change \"" + old_cate_name + "\" to \"" + $(this).val() + "\"?")) {
+			if (confirm("确定将 \"" + old_cate_name + "\" 修改为 \"" + $(this).val() + "\"?")) {
 				var csrftoken = getCookie('csrftoken');
 				$.ajax({
 					type:"post",
@@ -83,7 +83,7 @@ $(function () {
 		var tr_selector = "#tr_" + cate_no;
 		var dp_id_selector = "#dp_" + cate_no;
 
-		if(confirm("Are you sure to delete the category " + $(dp_id_selector).html() + " ?")) {
+		if(confirm("确定删除分类\"" + $(dp_id_selector).html() + "\"?")) {
 			var csrftoken = getCookie('csrftoken');
 
 			$.ajax({
