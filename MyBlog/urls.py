@@ -4,12 +4,14 @@ from django.contrib import admin
 
 admin.autodiscover()
 
-from browse.views import display_archive
+from browse.views import display_all
 from manage.views import settings, post, artmanage, catemanage
 from manage.views import ajax_modify_category, ajax_del_category, ajax_add_category, ajax_del_post, editpost
 from upload.views import uploadframe, ajax_del_img
 
 urlpatterns = patterns('',
+    # visitor browse
+    url(r'^$',display_all),
     # manage pages index
     url(r'^manage/settings/$', settings),
     url(r'^manage/post/$', post),

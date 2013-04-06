@@ -8,5 +8,23 @@
 		<li><a href="#">Category</a></li>
 		<li><a href="#">Rank</a></li>
 	</ul>
+	<table class="table">
+		<th>Name</th><th>Time</th><th>View</th>
+		{% for art in art_list %}
+		<tr>
+			<td><a href="/view/{{ art.id }}">{{art.title}}</a></td>
+			<td>{{art.time}}</td>
+			<td>{{art.view}}</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<ul class="pager">
+		<li><a href="#">首页</a></li>
+		<li><a href="#">上一页</a></li>
+		<li class="muted">&nbsp;- {{ crt_page }} -&nbsp;</li>
+		<li><a href="#">下一页</a></li>
+		<li><a href="#">尾页</a></li>
+		<li class="muted">&nbsp;&nbsp;共{{ ttl_page }}页</li>
+	</ul>
 </div>
 {% endblock %}

@@ -1,8 +1,9 @@
 # -*- coding: cp936 -*-
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import render_to_response
 from django.template import RequestContext
 from django.http import HttpResponse
 from django.utils.encoding import smart_unicode, smart_str
+from django.core.paginator import Paginator
 
 from manage.models import kobe_meta
 from manage.forms import ImgForm
@@ -14,6 +15,8 @@ import ImageFile
 bn_queryset = kobe_meta.objects.filter(meta_key = 'blog_name')
 np_queryset = kobe_meta.objects.filter(meta_key = 'num_of_pages')
 meta = {'blog_name':bn_queryset[0].meta_value, 'num_of_pages':np_queryset[0].meta_value}
+# get the Paginator of articles
+page = Paginator(kobe_posts.objects.all(), int(meta['num_of_pages']))
 
 # common settings
 def settings(request):
