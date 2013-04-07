@@ -18,3 +18,12 @@ def display_all(request):
 		tmpDic['view'] = post.post_view_num
 		art_list.append(tmpDic)
 	return render_to_response('index.html', dict(meta, **{'art_list':art_list, 'crt_page':1, 'ttl_page':page.num_pages}),RequestContext(request))
+
+def display_time(request):
+	return render_to_response('time.html',meta,RequestContext(request))
+
+def display_category(request):
+	return render_to_response('category.html',meta,RequestContext(request))
+
+def display_rank(request):
+	return render_to_response('rank.html',meta,RequestContext(request))
